@@ -1,0 +1,218 @@
+/* ==========================================================================
+   호박 (Hobak) - 구글 지도 기반 현주소 설정 UI 스타일 (location-map.css)
+   ========================================================================== */
+
+.hobak-gmap-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #212529 0%, #0F172A 100%);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 16px -4px rgba(15, 23, 42, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  white-space: nowrap;
+}
+
+.hobak-gmap-trigger-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #FF7E29 0%, #FF6200 100%);
+  box-shadow: 0 10px 20px -4px rgba(255, 111, 15, 0.38);
+}
+
+.hobak-gmap-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 111, 15, 0.35);
+  background: var(--hobak-primary-light);
+  color: var(--hobak-primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hobak-gmap-inline-btn:hover {
+  background: var(--hobak-primary);
+  color: #ffffff;
+}
+
+/* Google Maps Modal */
+.gmap-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 520;
+  background: rgba(15, 23, 42, 0.58);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.gmap-modal-backdrop[hidden] {
+  display: none !important;
+}
+
+.gmap-modal {
+  width: 100%;
+  max-width: 540px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 32px 72px -12px rgba(15, 23, 42, 0.36);
+  position: relative;
+}
+
+.gmap-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.gmap-modal-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--hobak-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gmap-modal-close {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(15, 23, 42, 0.06);
+  color: var(--hobak-gray-700);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.gmap-search-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.gmap-search-input {
+  flex: 1;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--hobak-gray-200);
+  font-size: 14px;
+}
+
+.gmap-search-input:focus {
+  outline: none;
+  border-color: var(--hobak-primary);
+}
+
+.gmap-gps-btn {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 111, 15, 0.35);
+  background: var(--hobak-primary-light);
+  color: var(--hobak-primary);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.gmap-gps-btn:hover {
+  background: var(--hobak-primary);
+  color: #ffffff;
+}
+
+.gmap-frame-wrap {
+  width: 100%;
+  height: 280px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--hobak-gray-200);
+  background: #e9ecef;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.gmap-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.gmap-status-box {
+  background: var(--hobak-gray-100);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gmap-detected-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--hobak-gray-500);
+}
+
+.gmap-detected-address {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--hobak-dark);
+}
+
+.gmap-detected-coords {
+  font-size: 12px;
+  color: var(--hobak-gray-500);
+}
+
+.gmap-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.gmap-external-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hobak-gray-700);
+  text-decoration: underline;
+}
+
+.gmap-apply-btn {
+  height: 42px;
+  padding: 0 22px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #FF7E29 0%, #FF6200 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 20px -6px rgba(255, 111, 15, 0.42);
+}
+
+.gmap-apply-btn:hover {
+  transform: translateY(-1px);
+}

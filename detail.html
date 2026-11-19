@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>그루퍼너 SJ mz-24 RC 조종기 | 호박 중고거래</title>
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/detail.css" />
+  <link rel="stylesheet" href="css/3d-experience.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/location-map.css" />
+</head>
+<body>
+  <!-- 상단 공통 헤더 (GNB) -->
+  <header class="hobak-header">
+    <div class="hobak-header-inner">
+      <a href="index.html" class="hobak-logo" aria-label="호박 홈으로 이동">
+        <img src="image/hobak_character.jpg" alt="호박 캐릭터" class="hobak-logo-char" />
+        <span>호박</span>
+      </a>
+
+      <form id="headerSearchForm" class="hobak-search-form" role="search">
+        <input
+          type="search"
+          id="headerSearchInput"
+          class="hobak-search-input"
+          placeholder="동네 이름, 물품명 등을 검색해보세요!"
+          aria-label="검색어 입력"
+        />
+        <button type="submit" class="hobak-search-btn" aria-label="검색">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </form>
+
+      <div class="hobak-nav-actions">
+        <a href="index.html" class="hobak-btn hobak-btn-outline">목록으로</a>
+        <a href="write.html" class="hobak-btn hobak-btn-primary">+ 글쓰기</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 상세 컨테이너 -->
+  <main class="detail-page-wrapper">
+    <article class="detail-card" id="detailCard">
+      <!-- 1. 상단 이미지 뷰어 (참고 이미지 100% 반영) -->
+      <section class="detail-image-viewer" aria-label="상품 이미지 뷰어">
+        <div class="slider-track" id="sliderTrack">
+          <!-- JS로 이미지 슬라이드 렌더링 -->
+        </div>
+
+        <!-- 좌상단 ✕ 닫기 버튼 -->
+        <a href="index.html" class="viewer-close-btn" id="viewerCloseBtn" title="목록으로 돌아가기" aria-label="닫기">
+          ✕
+        </a>
+
+        <!-- 우상단 주황색 '앱에서 보기' 배지 버튼 -->
+        <button type="button" class="viewer-app-btn" id="viewerAppBtn">
+          앱에서 보기
+        </button>
+
+        <!-- 좌/우 슬라이드 화살표 -->
+        <button type="button" class="slider-arrow slider-arrow-prev" id="sliderPrevBtn" aria-label="이전 이미지">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button type="button" class="slider-arrow slider-arrow-next" id="sliderNextBtn" aria-label="다음 이미지">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- 하단 인디케이터 점(dot) -->
+        <div class="slider-dots" id="sliderDots" role="tablist" aria-label="이미지 순서"></div>
+      </section>
+
+      <!-- 2. 판매자 프로필 영역 (이미지 바로 아래) -->
+      <section class="seller-profile-section" aria-label="판매자 정보">
+        <div class="seller-left" id="sellerProfileLink" role="button" tabindex="0" title="이 판매자가 올린 글 모두 보기">
+          <div class="seller-avatar" id="sellerAvatar" aria-hidden="true">
+            <!-- 기본 인물 SVG 또는 아바타 이모지 -->
+          </div>
+          <div class="seller-meta">
+            <div class="seller-nickname-row">
+              <span class="seller-nickname" id="sellerNickname">헤엄치는오리</span>
+              <span class="seller-posts-hint">올린 글 보기 &gt;</span>
+            </div>
+            <div class="seller-region" id="sellerRegion">화정동, 대송동</div>
+          </div>
+        </div>
+
+        <div class="seller-right">
+          <div class="manner-temp-top">
+            <div class="manner-temp-value-wrap">
+              <span class="manner-temp-value" id="mannerTempValue">37.2°C</span>
+              <div class="manner-gauge-bar" aria-hidden="true">
+                <div class="manner-gauge-fill" id="mannerGaugeFill" style="width: 37.2%;"></div>
+              </div>
+            </div>
+            <span class="manner-face-icon" id="mannerFaceIcon" aria-hidden="true">😊</span>
+          </div>
+          <button type="button" class="manner-temp-label" id="mannerTempHelpBtn">
+            매너온도
+          </button>
+
+          <!-- 매너온도 설명 툴팁 -->
+          <div class="manner-tooltip" id="mannerTooltip" role="tooltip" hidden>
+            <strong>매너온도란?</strong>
+            <p>호박 사용자로부터 받은 칭찬, 후기, 비매너 평가, 운영자 제재 등을 종합해서 만든 매너 지표예요. 첫 온도는 36.5°C에서 시작해요!</p>
+          </div>
+        </div>
+      </section>
+
+      <hr class="detail-divider" />
+
+      <!-- 3. 상품 본문 정보 영역 -->
+      <section class="product-body-section" aria-label="상품 상세 설명">
+        <!-- 거래 상태 배지 & 작성자 관리(수정/삭제/상태 버튼) -->
+        <div class="product-status-bar">
+          <div class="status-badge-group" id="statusBadgeGroup">
+            <!-- 상태 배지 렌더링 -->
+          </div>
+          <div class="status-select-wrap" id="statusSelectWrap" hidden>
+            <div class="author-status-btns" id="authorStatusBtns" role="group" aria-label="거래 상태 선택">
+              <button type="button" class="author-status-btn" data-status="판매중">판매중</button>
+              <button type="button" class="author-status-btn" data-status="예약중">예약중</button>
+              <button type="button" class="author-status-btn" data-status="판매완료">거래완료</button>
+            </div>
+            <div class="author-edit-actions">
+              <button type="button" id="editPostBtn" class="author-action-btn edit">✏️ 수정</button>
+              <button type="button" id="deletePostBtn" class="author-action-btn delete">🗑️ 삭제</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 상품 제목 -->
+        <h1 class="product-title" id="productTitle">그루퍼너 SJ mz-24 RC 조종기</h1>
+
+        <!-- 카테고리 · 시간 -->
+        <div class="product-category-time">
+          <a href="index.html" class="product-category-link" id="productCategoryLink">취미/게임/음반</a>
+          <span class="meta-dot">·</span>
+          <span id="productTimeAgo">끌올 2시간 전</span>
+        </div>
+
+        <!-- 가격 + 호박페이 배지 -->
+        <div class="product-price-row">
+          <strong class="product-price" id="productPrice">114,000원</strong>
+          <span class="status-badge hobak-pay" id="hobakPayBadge" hidden>🎃 호박페이 가능</span>
+        </div>
+
+        <!-- 상세 설명 본문 -->
+        <div class="product-description" id="productDescription"></div>
+
+        <!-- 하단 메타 카운트 -->
+        <div class="product-meta-counts" id="productMetaCounts">
+          채팅 0 · 관심 1 · 조회 21
+        </div>
+      </section>
+
+      <!-- 4. 하단 액션 바 (관심 하트 + 가격 + 호박채팅 하기) -->
+      <section class="detail-action-bar" aria-label="구매 및 채팅 액션">
+        <button type="button" class="like-toggle-btn" id="likeToggleBtn" aria-label="관심 상품 등록">
+          <span class="like-heart-icon" id="likeHeartIcon">♡</span>
+        </button>
+        <div class="action-bar-divider"></div>
+        <div class="action-bar-price-info">
+          <span class="action-bar-price" id="actionBarPrice">114,000원</span>
+          <span class="action-bar-sub" id="actionBarSub">가격 제안 불가</span>
+        </div>
+        <button type="button" class="chat-open-btn" id="chatOpenBtn">
+          호박채팅 하기
+        </button>
+      </section>
+    </article>
+
+    <!-- 5. 함께 본 상품 / 다른 중고거래 추천 섹션 -->
+    <section class="related-products-section" aria-label="함께 본 상품 추천">
+      <div class="related-header">
+        <h2 class="related-title">이 상품과 함께 본 호박 인기매물</h2>
+        <a href="index.html" class="related-more-link">더 구경하기 &gt;</a>
+      </div>
+      <div class="related-grid" id="relatedGrid">
+        <!-- JS로 추천 상품 4개 미니 카드 렌더링 -->
+      </div>
+    </section>
+  </main>
+
+  <!-- 공통 푸터 -->
+  <footer class="hobak-footer">
+    <div class="hobak-footer-inner">
+      <div class="hobak-footer-top">
+        <div class="hobak-logo">
+          <img src="image/hobak_character.jpg" alt="호박 캐릭터" class="hobak-logo-char" />
+          <span>호박마켓</span>
+        </div>
+        <span>이웃과 함께하는 따뜻한 우리 동네 중고거래</span>
+      </div>
+      <div class="hobak-footer-cols">
+        <div class="hobak-footer-col">
+          <h4>호박 중고거래</h4>
+          <ul>
+            <li><a href="index.html">인기매물</a></li>
+            <li><a href="write.html">중고물품 판매하기</a></li>
+          </ul>
+        </div>
+        <div class="hobak-footer-col">
+          <h4>동네생활</h4>
+          <ul>
+            <li><a href="index.html">우리동네 질문</a></li>
+            <li><a href="index.html">동네 분실센터</a></li>
+          </ul>
+        </div>
+        <div class="hobak-footer-col">
+          <h4>고객지원</h4>
+          <ul>
+            <li><a href="index.html">자주 묻는 질문</a></li>
+            <li><a href="index.html">안전거래 가이드</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="hobak-footer-info">
+        © 2026 Hobak Market Inc. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- 호박채팅 가상 모달 -->
+  <div class="chat-modal-backdrop" id="chatModalBackdrop" hidden>
+    <div class="chat-modal" role="dialog" aria-modal="true" aria-labelledby="chatModalTitle">
+      <div class="chat-modal-header">
+        <div class="chat-modal-seller">
+          <span class="chat-modal-avatar" id="chatModalAvatar">🦆</span>
+          <div>
+            <h3 class="chat-modal-title" id="chatModalTitle">헤엄치는오리</h3>
+            <span class="chat-modal-temp" id="chatModalTemp">매너온도 37.2°C</span>
+          </div>
+        </div>
+        <button type="button" class="chat-modal-close" id="chatModalCloseBtn" aria-label="채팅창 닫기">✕</button>
+      </div>
+
+      <div class="chat-modal-product-bar">
+        <img src="" alt="" class="chat-modal-thumb" id="chatModalThumb" />
+        <div class="chat-modal-product-info">
+          <div class="chat-modal-product-name" id="chatModalProductName">그루퍼너 SJ mz-24 RC 조종기</div>
+          <div class="chat-modal-product-price" id="chatModalProductPrice">114,000원</div>
+        </div>
+      </div>
+
+      <div class="chat-messages-area" id="chatMessagesArea">
+        <!-- 대화 메시지 영역 -->
+      </div>
+
+      <div class="chat-quick-Chips" id="chatQuickChips">
+        <button type="button" class="chat-chip">안녕하세요! 구매 가능할까요?</button>
+        <button type="button" class="chat-chip">직거래 어디서 가능하신가요?</button>
+        <button type="button" class="chat-chip">제품 상태 궁금해요 😊</button>
+      </div>
+
+      <form class="chat-input-form" id="chatInputForm">
+        <input
+          type="text"
+          id="chatMessageInput"
+          class="chat-message-input"
+          placeholder="메시지를 입력하세요..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit" class="chat-send-btn">전송</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 토스트 알림 컨테이너 -->
+  <div class="hobak-toast" id="hobakToast" role="status" aria-live="polite" hidden></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/supabase-auth.js"></script>
+  <script src="js/supabase-sync.js"></script>
+  <script src="js/detail.js"></script>
+  <script src="js/antigravity-design.js" defer></script>
+  <script src="js/product-textures.js" defer></script>
+  <script src="js/3d-web-experience.js" defer></script>
+  <script src="js/location-map.js" defer></script>
+</body>
+</html>

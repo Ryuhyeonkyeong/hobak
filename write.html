@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>내 물건 팔기 - 호박 🎃</title>
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/write.css" />
+  <link rel="stylesheet" href="css/3d-experience.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/location-map.css" />
+</head>
+<body>
+  <!-- 상단 헤더 (GNB) -->
+  <header class="hobak-header">
+    <div class="hobak-header-inner write-header-inner">
+      <a href="index.html" class="hobak-logo" aria-label="호박 홈으로 이동">
+        <img src="image/hobak_character.jpg" alt="호박 캐릭터" class="hobak-logo-char" />
+        <span>호박</span>
+      </a>
+
+      <h1 class="write-header-title">내 물건 팔기</h1>
+
+      <div class="hobak-nav-actions">
+        <a href="index.html" class="hobak-btn hobak-btn-outline">목록으로</a>
+        <button type="button" id="headerSubmitBtn" class="hobak-btn hobak-btn-primary">
+          작성 완료
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 컨테이너 (2단 레이아웃: 좌측 입력 폼 + 우측 실시간 상세 미리보기) -->
+  <main class="write-main">
+    <div class="write-container">
+      <!-- 좌측: 상품 등록 폼 -->
+      <section class="write-form-section" aria-label="상품 등록 입력 폼">
+        <div class="write-form-top-banner">
+          <div class="banner-text">
+            <strong>🎃 이웃과 따뜻한 거래를 시작해 보세요!</strong>
+            <span>입력한 내용은 우측 상품 상세 미리보기에 실시간으로 반영됩니다.</span>
+          </div>
+          <button type="button" id="fillDemoBtn" class="demo-fill-btn" title="그루퍼너 RC 조종기 예시 자동 입력">
+            ✨ 예시 자동채우기
+          </button>
+        </div>
+
+        <form id="productWriteForm" novalidate>
+          <!-- 1. 상품 이미지 등록 (0/5) -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label">상품 이미지</label>
+              <span class="image-counter"><strong id="imageCountText">0</strong> / 5</span>
+            </div>
+
+            <div class="image-upload-row">
+              <!-- 로컬 파일 업로드 버튼 -->
+              <label for="imageFileInput" class="image-upload-box" id="imageDropZone">
+                <input
+                  type="file"
+                  id="imageFileInput"
+                  accept="image/*"
+                  multiple
+                  hidden
+                />
+                <span class="camera-icon">📷</span>
+                <span class="upload-count"><em id="boxImageCount">0</em>/5</span>
+                <span class="upload-sub">사진 추가</span>
+              </label>
+
+              <!-- 등록된 이미지 썸네일 리스트 -->
+              <div id="uploadedImageList" class="uploaded-image-list"></div>
+            </div>
+
+            <!-- 원클릭 실물 샘플 사진 프리셋 -->
+            <div class="preset-image-box">
+              <span class="preset-label">💡 사진 파일이 없으신가요? 원클릭 실물 사진 프리셋 추가:</span>
+              <div class="preset-btn-group">
+                <button type="button" class="preset-img-btn" data-preset="game">🎮 게임/취미</button>
+                <button type="button" class="preset-img-btn" data-preset="digital">💻 디지털기기</button>
+                <button type="button" class="preset-img-btn" data-preset="bike">🚲 자전거/레저</button>
+                <button type="button" class="preset-img-btn" data-preset="fashion">👜 패션잡화</button>
+                <button type="button" class="preset-img-btn" data-preset="appliance">☕ 생활가전</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 제목 -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="titleInput" class="form-label">제목 <span class="required-dot">*</span></label>
+              <span class="char-counter" id="titleCharCount">0 / 60</span>
+            </div>
+            <input
+              type="text"
+              id="titleInput"
+              class="form-input"
+              maxlength="60"
+              placeholder="글 제목을 입력해 주세요 (예: 그루퍼너 SJ mz-24 RC 조종기)"
+              required
+            />
+            <p class="field-error" id="titleError">상품 제목을 2자 이상 입력해 주세요.</p>
+          </div>
+
+          <!-- 3. 카테고리 선택 -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label">카테고리 <span class="required-dot">*</span></label>
+              <span class="selected-cat-hint" id="selectedCategoryText">취미/게임/음반</span>
+            </div>
+            <div class="category-pills" id="categoryPills" role="radiogroup" aria-label="카테고리 선택">
+              <button type="button" class="category-pill" data-category="디지털기기">💻 디지털기기</button>
+              <button type="button" class="category-pill" data-category="생활가전">☕ 생활가전</button>
+              <button type="button" class="category-pill" data-category="가구/인테리어">🪑 가구/인테리어</button>
+              <button type="button" class="category-pill" data-category="여성잡화">👛 여성잡화</button>
+              <button type="button" class="category-pill" data-category="뷰티/미용">💄 뷰티/미용</button>
+              <button type="button" class="category-pill" data-category="스포츠/레저">🚲 스포츠/레저</button>
+              <button type="button" class="category-pill active" data-category="취미/게임/음반">🎮 취미/게임/음반</button>
+              <button type="button" class="category-pill" data-category="도서">📚 도서</button>
+              <button type="button" class="category-pill" data-category="기타 중고물품">📦 기타 중고물품</button>
+            </div>
+          </div>
+
+          <!-- 4. 거래 방식 & 가격 -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="priceInput" class="form-label">거래 방식 &amp; 가격 <span class="required-dot">*</span></label>
+            </div>
+
+            <div class="trade-type-row">
+              <div class="trade-toggle-group" role="group" aria-label="거래 방식 선택">
+                <button type="button" id="modeSellBtn" class="trade-toggle-btn active" data-mode="sell">
+                  판매하기
+                </button>
+                <button type="button" id="modeFreeBtn" class="trade-toggle-btn" data-mode="free">
+                  무료나눔 🧡
+                </button>
+              </div>
+
+              <label class="hobak-pay-check" for="hobakPayInput">
+                <input type="checkbox" id="hobakPayInput" checked />
+                <span class="check-custom"></span>
+                <span class="check-label">🎃 호박페이(안전결제) 사용</span>
+              </label>
+            </div>
+
+            <div class="price-input-wrap" id="priceInputWrap">
+              <span class="currency-prefix">₩</span>
+              <input
+                type="text"
+                id="priceInput"
+                class="form-input price-input"
+                inputmode="numeric"
+                placeholder="가격을 입력해 주세요"
+                autocomplete="off"
+              />
+              <span class="currency-suffix">원</span>
+            </div>
+            <p class="field-error" id="priceError">올바른 판매 가격을 입력하거나 무료나눔을 선택해 주세요.</p>
+          </div>
+
+          <!-- 5. 판매자 & 거래 희망 동네 정보 -->
+          <div class="form-group seller-config-group">
+            <div class="form-label-row">
+              <label class="form-label">판매자 &amp; 거래 희망 동네 정보</label>
+              <span class="manner-badge-inline" title="호박 매너온도">매너온도 <strong id="formMannerText">37.2°C 😊</strong></span>
+            </div>
+
+            <div class="seller-grid">
+              <div class="seller-field">
+                <label for="sellerNicknameInput" class="sub-label">판매자 닉네임</label>
+                <div class="seller-nick-row">
+                  <select id="sellerEmojiSelect" class="emoji-select" aria-label="프로필 이모지 선택">
+                    <option value="🦆" selected>🦆</option>
+                    <option value="🎃">🎃</option>
+                    <option value="🚲">🚲</option>
+                    <option value="👜">👜</option>
+                    <option value="☕">☕</option>
+                    <option value="💻">💻</option>
+                    <option value="🐰">🐰</option>
+                  </select>
+                  <input
+                    type="text"
+                    id="sellerNicknameInput"
+                    class="form-input"
+                    value="헤엄치는오리"
+                    maxlength="20"
+                    placeholder="닉네임 입력"
+                  />
+                </div>
+              </div>
+
+              <div class="seller-field">
+                <label for="sellerRegionInput" class="sub-label">거래 희망 동네</label>
+                <input
+                  type="text"
+                  id="sellerRegionInput"
+                  class="form-input"
+                  value="화정동, 대송동"
+                  maxlength="30"
+                  placeholder="예: 화정동, 대송동 / 양정동"
+                />
+                <div class="region-quick-chips">
+                  <button type="button" class="region-chip active" data-region="화정동, 대송동">화정동, 대송동</button>
+                  <button type="button" class="region-chip" data-region="양정동">양정동</button>
+                  <button type="button" class="region-chip" data-region="염포동">염포동</button>
+                  <button type="button" class="region-chip" data-region="일산동">일산동</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. 자세한 설명 -->
+          <div class="form-group">
+            <div class="form-label-row">
+              <label for="descInput" class="form-label">자세한 설명 <span class="required-dot">*</span></label>
+              <span class="char-counter" id="descCharCount">0 / 1000</span>
+            </div>
+            <textarea
+              id="descInput"
+              class="form-textarea"
+              rows="7"
+              maxlength="1000"
+              placeholder="양정동 이웃에게 올릴 게시글 내용을 작성해 주세요. 구매 시기, 브랜드/모델명, 제품의 상태(사용감, 하자 유무) 등을 입력하면 빠른 거래에 도움이 돼요."
+              required
+            ></textarea>
+            <p class="field-error" id="descError">상품에 대한 자세한 설명을 10자 이상 입력해 주세요.</p>
+          </div>
+
+          <!-- 하단 액션 버튼 영역 -->
+          <div class="form-bottom-actions">
+            <a href="index.html" class="hobak-btn hobak-btn-outline btn-lg">취소</a>
+            <button type="submit" id="bottomSubmitBtn" class="hobak-btn hobak-btn-primary btn-lg submit-main-btn">
+              🎃 작성 완료 및 상품 등록하기
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- 우측: 실시간 상품 상세 페이지 미리보기 카드 -->
+      <aside class="write-preview-aside" aria-label="실시간 상품 상세 페이지 미리보기">
+        <div class="preview-sticky-wrap">
+          <div class="preview-header-bar">
+            <span class="live-dot"></span>
+            <span class="preview-header-title">실시간 상품 상세 미리보기</span>
+            <span class="preview-header-badge">Detail View</span>
+          </div>
+
+          <!-- 그루퍼너 상세화면 스타일 미리보기 카드 -->
+          <div class="preview-detail-card">
+            <!-- 상단 브레드크럼 -->
+            <div class="preview-breadcrumb">
+              <span>홈</span>
+              <span class="sep">&gt;</span>
+              <span id="previewBreadcrumbCat">취미/게임/음반</span>
+              <span class="sep">&gt;</span>
+              <span id="previewBreadcrumbTitle" class="crumb-current">그루퍼너 SJ mz-24 RC 조종기</span>
+            </div>
+
+            <!-- 상세 이미지 프리뷰 영역 -->
+            <div class="preview-gallery">
+              <img
+                id="previewMainImage"
+                src=""
+                alt="상품 미리보기 이미지"
+                class="preview-main-img"
+              />
+              <span class="preview-img-badge" id="previewImgCountBadge">1 / 1</span>
+              <div class="preview-dots" id="previewThumbDots"></div>
+            </div>
+
+            <!-- 판매자 프로필 & 매너온도 바 -->
+            <div class="preview-seller-bar">
+              <div class="preview-seller-left">
+                <div class="preview-avatar" id="previewSellerEmoji">🦆</div>
+                <div class="preview-seller-meta">
+                  <div class="preview-seller-name" id="previewSellerName">헤엄치는오리</div>
+                  <div class="preview-seller-region" id="previewSellerRegion">화정동, 대송동</div>
+                </div>
+              </div>
+              <div class="preview-manner-box">
+                <div class="preview-manner-top">
+                  <span class="preview-manner-val" id="previewMannerTemp">37.2°C</span>
+                  <span class="preview-manner-face">😊</span>
+                </div>
+                <div class="preview-manner-track">
+                  <div class="preview-manner-fill" style="width: 42%"></div>
+                </div>
+                <span class="preview-manner-caption">매너온도</span>
+              </div>
+            </div>
+
+            <!-- 본문 상세 정보 -->
+            <div class="preview-content-body">
+              <div class="preview-badges-row">
+                <span class="status-badge selling-badge">판매중</span>
+                <span class="status-badge hobak-pay" id="previewHobakPayBadge">🎃 호박페이</span>
+              </div>
+
+              <h2 class="preview-title" id="previewTitle">그루퍼너 SJ mz-24 RC 조종기</h2>
+
+              <div class="preview-category-time">
+                <span id="previewCategoryLink" class="preview-cat-underline">취미/게임/음반</span>
+                <span>·</span>
+                <span>방금 전</span>
+              </div>
+
+              <div class="preview-price-row">
+                <strong class="preview-price" id="previewPrice">114,000원</strong>
+              </div>
+
+              <p class="preview-description" id="previewDescription">그루퍼너 SJ의 mz-24 모델 조종기예요. 조종기와 함께 GR-24L 수신기, 배터리, 연결 케이블이 포함되어 있어요. 정밀한 조종이 필요한 RC 비행 취미를 즐기기에 적합한 구성이에요.</p>
+
+              <div class="preview-counts">
+                채팅 0 · 관심 0 · 조회 1
+              </div>
+
+              <!-- 상세 화면 액션 버튼 모사 -->
+              <div class="preview-cta-row">
+                <button type="button" class="preview-wish-btn" disabled aria-label="관심상품 미리보기">🤍</button>
+                <button type="button" class="preview-chat-btn" disabled>호박채팅하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- 공통 푸터 -->
+  <footer class="hobak-footer">
+    <div class="hobak-footer-inner">
+      <div class="hobak-footer-top">
+        <div class="hobak-logo">
+          <img src="image/hobak_character.jpg" alt="호박 캐릭터" class="hobak-logo-char" />
+          <span>호박마켓</span>
+        </div>
+        <span>이웃과 함께하는 따뜻한 우리 동네 중고거래 플랫폼</span>
+      </div>
+      <div class="hobak-footer-info">
+        (주)호박마켓 | 대표: 호박이웃 | 울산광역시 북구 양정동 · 동구 화정동 · 대송동<br />
+        본 페이지는 로컬 스토리지 기반으로 동작하는 중고거래 데모 웹 애플리케이션입니다.
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/supabase-auth.js"></script>
+  <script src="js/supabase-sync.js"></script>
+  <script src="js/write.js"></script>
+  <script src="js/antigravity-design.js" defer></script>
+  <script src="js/product-textures.js" defer></script>
+  <script src="js/3d-web-experience.js" defer></script>
+  <script src="js/location-map.js" defer></script>
+</body>
+</html>

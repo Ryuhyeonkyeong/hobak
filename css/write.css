@@ -1,0 +1,932 @@
+/* =========================================================
+   호박 (Hobak) - 내 물건 팔기 (write.html) 전용 스타일
+   ========================================================= */
+
+body {
+  background-color: #F8F9FA;
+}
+
+/* 상단 헤더 커스텀 */
+.write-header-inner {
+  position: relative;
+}
+
+.write-header-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--hobak-dark);
+  letter-spacing: -0.3px;
+}
+
+/* 메인 2단 레이아웃 */
+.write-main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 32px 20px 40px;
+}
+
+.write-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.95fr);
+  gap: 32px;
+  align-items: start;
+}
+
+/* 좌측 폼 카드 */
+.write-form-section {
+  background: #FFFFFF;
+  border: 1px solid var(--hobak-gray-200);
+  border-radius: var(--hobak-radius-lg);
+  padding: 28px 30px 32px;
+  box-shadow: var(--hobak-shadow);
+}
+
+.write-form-top-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--hobak-primary-light);
+  border: 1px solid rgba(255, 111, 15, 0.22);
+  border-radius: var(--hobak-radius-md);
+  padding: 14px 18px;
+  margin-bottom: 26px;
+}
+
+.write-form-top-banner .banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.write-form-top-banner .banner-text strong {
+  font-size: 14px;
+  color: var(--hobak-dark);
+}
+
+.write-form-top-banner .banner-text span {
+  font-size: 12.5px;
+  color: var(--hobak-gray-700);
+}
+
+.demo-fill-btn {
+  flex-shrink: 0;
+  background: #FFFFFF;
+  color: var(--hobak-primary);
+  border: 1px solid var(--hobak-primary);
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.demo-fill-btn:hover {
+  background: var(--hobak-primary);
+  color: #FFFFFF;
+}
+
+/* 폼 그룹 공통 */
+.form-group {
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--hobak-gray-200);
+}
+
+.form-group:last-of-type {
+  border-bottom: none;
+  margin-bottom: 12px;
+}
+
+.form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.form-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--hobak-dark);
+}
+
+.required-dot {
+  color: var(--hobak-primary);
+  margin-left: 2px;
+}
+
+.char-counter,
+.image-counter {
+  font-size: 13px;
+  color: var(--hobak-gray-500);
+}
+
+.image-counter strong {
+  color: var(--hobak-primary);
+}
+
+/* 1. 이미지 업로드 영역 */
+.image-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.image-upload-box {
+  width: 92px;
+  height: 92px;
+  border: 1.5px dashed var(--hobak-gray-400);
+  border-radius: var(--hobak-radius-md);
+  background: var(--hobak-gray-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.image-upload-box:hover,
+.image-upload-box.dragover {
+  border-color: var(--hobak-primary);
+  background: var(--hobak-primary-light);
+}
+
+.camera-icon {
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+.upload-count {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--hobak-gray-700);
+}
+
+.upload-count em {
+  font-style: normal;
+  color: var(--hobak-primary);
+  font-weight: 700;
+}
+
+.upload-sub {
+  font-size: 11px;
+  color: var(--hobak-gray-500);
+}
+
+.uploaded-image-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.uploaded-thumb-item {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  border-radius: var(--hobak-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--hobak-gray-200);
+  background: #fff;
+  cursor: pointer;
+}
+
+.uploaded-thumb-item.active-thumb {
+  border: 2px solid var(--hobak-primary);
+}
+
+.uploaded-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumb-rep-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(33, 33, 36, 0.78);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-align: center;
+  padding: 2px 0;
+}
+
+.thumb-remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.thumb-remove-btn:hover {
+  background: #e03131;
+}
+
+/* 프리셋 이미지 버튼 영역 */
+.preset-image-box {
+  background: var(--hobak-gray-100);
+  border-radius: var(--hobak-radius-sm);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preset-label {
+  font-size: 12.5px;
+  color: var(--hobak-gray-700);
+  font-weight: 600;
+}
+
+.preset-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.preset-img-btn {
+  padding: 6px 11px;
+  border-radius: 6px;
+  border: 1px solid var(--hobak-gray-200);
+  background: #FFFFFF;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--hobak-dark);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.preset-img-btn:hover {
+  border-color: var(--hobak-primary);
+  color: var(--hobak-primary);
+  background: var(--hobak-primary-light);
+}
+
+/* 텍스트 입력 & 텍스트에어리어 */
+.form-input,
+.form-textarea {
+  width: 100%;
+  border: 1px solid var(--hobak-gray-200);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 15px;
+  color: var(--hobak-dark);
+  background: #FFFFFF;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--hobak-primary);
+  box-shadow: 0 0 0 3px rgba(255, 111, 15, 0.12);
+}
+
+.form-input.input-invalid,
+.form-textarea.input-invalid {
+  border-color: #e03131;
+  box-shadow: 0 0 0 3px rgba(224, 49, 49, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 150px;
+  line-height: 1.6;
+}
+
+.field-error {
+  display: none;
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: #e03131;
+  font-weight: 600;
+}
+
+.field-error.visible {
+  display: block;
+}
+
+/* 3. 카테고리 알약 버튼 */
+.selected-cat-hint {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--hobak-primary);
+}
+
+.category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.category-pill {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--hobak-gray-200);
+  background: #FFFFFF;
+  color: var(--hobak-gray-700);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.category-pill:hover {
+  border-color: var(--hobak-primary);
+  color: var(--hobak-primary);
+}
+
+.category-pill.active {
+  background: var(--hobak-primary);
+  border-color: var(--hobak-primary);
+  color: #FFFFFF;
+}
+
+/* 4. 거래 방식 & 가격 */
+.trade-type-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.trade-toggle-group {
+  display: inline-flex;
+  background: var(--hobak-gray-100);
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.trade-toggle-btn {
+  padding: 8px 18px;
+  border-radius: 7px;
+  border: none;
+  background: transparent;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--hobak-gray-700);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.trade-toggle-btn.active {
+  background: var(--hobak-dark);
+  color: #FFFFFF;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+/* 호박페이 체크박스 */
+.hobak-pay-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: var(--hobak-primary-light);
+  border: 1px solid rgba(255, 111, 15, 0.25);
+}
+
+.hobak-pay-check input {
+  accent-color: var(--hobak-primary);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.hobak-pay-check .check-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--hobak-primary);
+}
+
+.price-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-prefix {
+  position: absolute;
+  left: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--hobak-gray-700);
+}
+
+.price-input {
+  padding-left: 34px;
+  padding-right: 38px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.currency-suffix {
+  position: absolute;
+  right: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--hobak-gray-500);
+}
+
+.price-input-wrap.disabled .price-input {
+  background: var(--hobak-gray-100);
+  color: var(--hobak-gray-500);
+  cursor: not-allowed;
+}
+
+/* 5. 판매자 & 거래 희망 동네 */
+.manner-badge-inline {
+  font-size: 13px;
+  color: var(--hobak-gray-700);
+  background: #E6FCF5;
+  padding: 4px 10px;
+  border-radius: 14px;
+}
+
+.manner-badge-inline strong {
+  color: #0CA678;
+}
+
+.seller-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.seller-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sub-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hobak-gray-700);
+}
+
+.seller-nick-row {
+  display: flex;
+  gap: 8px;
+}
+
+.emoji-select {
+  width: 58px;
+  border: 1px solid var(--hobak-gray-200);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.region-quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.region-chip {
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--hobak-gray-200);
+  background: var(--hobak-gray-100);
+  font-size: 12px;
+  color: var(--hobak-gray-700);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.region-chip:hover,
+.region-chip.active {
+  background: var(--hobak-primary-light);
+  border-color: var(--hobak-primary);
+  color: var(--hobak-primary);
+  font-weight: 700;
+}
+
+/* 하단 버튼 */
+.form-bottom-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-lg {
+  height: 48px;
+  padding: 0 24px;
+  font-size: 15px;
+  border-radius: 10px;
+}
+
+.submit-main-btn {
+  flex: 1;
+  max-width: 280px;
+}
+
+/* =========================================================
+   우측: 실시간 상품 상세 페이지 미리보기 카드
+   ========================================================= */
+.write-preview-aside {
+  position: relative;
+}
+
+.preview-sticky-wrap {
+  position: sticky;
+  top: 88px;
+}
+
+.preview-header-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #20C997;
+  box-shadow: 0 0 0 4px rgba(32, 201, 151, 0.2);
+}
+
+.preview-header-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--hobak-dark);
+}
+
+.preview-header-badge {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--hobak-primary);
+  background: var(--hobak-primary-light);
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.preview-detail-card {
+  background: #FFFFFF;
+  border: 1px solid var(--hobak-gray-200);
+  border-radius: var(--hobak-radius-lg);
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+}
+
+.preview-breadcrumb {
+  padding: 12px 18px;
+  font-size: 12px;
+  color: var(--hobak-gray-500);
+  background: #FAFAFB;
+  border-bottom: 1px solid var(--hobak-gray-200);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preview-breadcrumb .crumb-current {
+  color: var(--hobak-dark);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 미리보기 이미지 영역 */
+.preview-gallery {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 0.86;
+  background: #1e293b;
+  overflow: hidden;
+}
+
+.preview-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.preview-img-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.58);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.preview-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.preview-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.preview-dot.active {
+  background: #FFFFFF;
+  width: 18px;
+  border-radius: 4px;
+}
+
+/* 미리보기 판매자 프로필 바 */
+.preview-seller-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--hobak-gray-200);
+}
+
+.preview-seller-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.preview-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--hobak-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border: 1px solid rgba(255, 111, 15, 0.2);
+}
+
+.preview-seller-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--hobak-dark);
+}
+
+.preview-seller-region {
+  font-size: 12px;
+  color: var(--hobak-gray-500);
+}
+
+.preview-manner-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.preview-manner-top {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.preview-manner-val {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0CA678;
+}
+
+.preview-manner-face {
+  font-size: 15px;
+}
+
+.preview-manner-track {
+  width: 68px;
+  height: 5px;
+  background: var(--hobak-gray-200);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.preview-manner-fill {
+  height: 100%;
+  background: #20C997;
+  border-radius: 3px;
+}
+
+.preview-manner-caption {
+  font-size: 10.5px;
+  color: var(--hobak-gray-500);
+}
+
+/* 미리보기 본문 */
+.preview-content-body {
+  padding: 18px;
+}
+
+.preview-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.selling-badge {
+  background: #E6FCF5;
+  color: #0CA678;
+}
+
+.preview-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--hobak-dark);
+  line-height: 1.35;
+  margin-bottom: 6px;
+  word-break: keep-all;
+}
+
+.preview-category-time {
+  font-size: 12.5px;
+  color: var(--hobak-gray-500);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.preview-cat-underline {
+  text-decoration: underline;
+}
+
+.preview-price-row {
+  margin-bottom: 14px;
+}
+
+.preview-price {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--hobak-dark);
+}
+
+.preview-price.free-share {
+  color: var(--hobak-primary);
+}
+
+.preview-description {
+  font-size: 14px;
+  color: var(--hobak-gray-900);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: 16px;
+  min-height: 68px;
+}
+
+.preview-counts {
+  font-size: 12px;
+  color: var(--hobak-gray-500);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hobak-gray-200);
+  margin-bottom: 14px;
+}
+
+.preview-cta-row {
+  display: flex;
+  gap: 10px;
+}
+
+.preview-wish-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--hobak-gray-200);
+  background: #fff;
+  font-size: 18px;
+}
+
+.preview-chat-btn {
+  flex: 1;
+  height: 44px;
+  border-radius: 8px;
+  border: none;
+  background: var(--hobak-primary);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+/* 반응형 미디어 쿼리 */
+@media (max-width: 960px) {
+  .write-container {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-sticky-wrap {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .write-form-section {
+    padding: 20px 16px;
+  }
+
+  .write-form-top-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .seller-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .write-header-title {
+    display: none;
+  }
+}
+
+/* =========================================================
+   Antigravity Design Expert Enhancements (write.css)
+   Weightlessness · Glassmorphism · 3D Spatial Depth
+   ========================================================= */
+.write-container {
+  perspective: 1400px;
+}
+
+.write-form-section {
+  background: var(--ag-glass-bg-strong);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--ag-glass-border);
+  box-shadow: var(--ag-shadow-weightless);
+  transition: transform 0.4s var(--ag-ease-out), box-shadow 0.4s var(--ag-ease-out);
+}
+
+.preview-detail-card {
+  background: var(--ag-glass-bg-strong);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid var(--ag-glass-border);
+  box-shadow: var(--ag-shadow-weightless);
+  transform-style: preserve-3d;
+  transition:
+    transform 0.42s var(--ag-ease-out),
+    box-shadow 0.42s var(--ag-ease-out);
+}
+
+.preview-detail-card:hover {
+  box-shadow: var(--ag-shadow-hover);
+}
+
+.category-pill,
+.preset-img-btn,
+.region-chip {
+  transition: all 0.32s var(--ag-ease-out);
+}
+
+.category-pill:hover,
+.preset-img-btn:hover,
+.region-chip:hover {
+  transform: translateY(-2px);
+}
